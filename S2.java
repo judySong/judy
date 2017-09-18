@@ -4,54 +4,80 @@ public class S2{
         print30Questions();
     }
     private static void print30Questions() {
-        //ËµÃ÷£º´òÓ¡30µÀÌâº¯Êı£¬°Ñ½ÓÊÕµ½µÄÌâÄ¿×Ö·û´®°´ÕÕÖ¸¶¨¸ñÊ½Êä³ö¡£
+        //è¯´æ˜ï¼šæ‰“å°30é“é¢˜å‡½æ•°ï¼ŒæŠŠæ¥æ”¶åˆ°çš„é¢˜ç›®å­—ç¬¦ä¸²æŒ‰ç…§æŒ‡å®šæ ¼å¼è¾“å‡ºã€‚
         for (int i = 0; i < 10; i++) {
             System.out.print( i+1 );
-            System.out.print("." + getQuestion() + "    ");
+            System.out.print("." + getPfQuestion() + "    ");
             System.out.print( i+11 );
-            System.out.print("." + getQuestion() + "    ");
+            System.out.print("." + getPfQuestion() + "    ");
             System.out.print( i+21 );
-            System.out.println("." + getQuestion());
+            System.out.println("." + getPfQuestion());
         }
     }
-    private static String getQuestion() {
-        //ËµÃ÷£ºgetQuestion()µÃµ½ÌâÄ¿º¯Êı£¬Ëæ»úÉú³ÉÌâÄ¿£¬·µ»ØÌâÄ¿×Ö·û´®¡£
+        private static String getPfQuestion() {
+        //è¯´æ˜ï¼šgetPfQuestion()å¾—åˆ°çœŸåˆ†æ•°é¢˜ç›®å‡½æ•°ï¼Œéšæœºç”ŸæˆçœŸåˆ†æ•°é¢˜ç›®ï¼Œè¿”å›çœŸåˆ†æ•°é¢˜ç›®å­—ç¬¦ä¸²ã€‚
         int t = 0;
         String strz = "";    
-        int x=1+(int)(Math.random()*100);        
-        int y=1+(int)(Math.random()*100);    
+        
+        int x1=1+(int)(Math.random()*10);
+        int x2=1+(int)(Math.random()*10);//åˆ†æ¯
+        
+        int y1=1+(int)(Math.random()*10);
+        int y2=1+(int)(Math.random()*10);//åˆ†æ¯
+        
+        if( x2 <= x1 ){
+            t = x2;
+            x2 = x1;
+            x1 = t;
+            if( x1 == x2 ) {
+                x1 = x1 - 1;//ä¿è¯åˆ†å­æ¯”åˆ†æ¯å°
+            }
+        }
+        
+        if( y2 <= y1 ){
+            t = y2;
+            y2 = y1;
+            y1 = t;
+            if( y1 == y2 ) {
+                y1 = y1 - 1;//ä¿è¯åˆ†å­æ¯”åˆ†æ¯å°
+            }
+        }
+        
         int z=1+(int)(Math.random()*100);
+        
         if( z<=25 ) {
-            strz = "¡Á";
-            x = x % 10;
-            y = y % 10;//Á½¸ö¸÷Î»ÊıÏà³É
+            strz = "Ã—";
         }
         if( z>25 && z<=50 ) {
-            strz = "¡Â";
-            y = ( y % 10 ) + 1;//³ıÊı²»ÄÜÎª0ÊÇ²»ÊÇ
+            strz = "Ã·";
+            if( y1 == 0 )
+            y1 = y1 + 1;//é™¤æ•°çš„åˆ†å­ä¸èƒ½ä¸º0æ˜¯ä¸æ˜¯
         }
         if( z>50 && z<=75) {
-            strz = "+";
-            if ((x+y) > 100) {        
-                x = x / 2;
-                y = y / 2;//³Ë·¨Ïà¼Ó½á¹û²»´óÓÚ100
-            }        
+            strz = "+";    
         }
         if( z>75 ) {
             strz = "-";
-            if( x < y ){
-                t = y;
-                y = x;
-                x = t;//±£Ö¤¼õ·¨ÊÇ´óÊı¼õÈ¥Ğ¡Êı
+            if( x1/x2 > y1/y2 ) {
+                
+                t = x1;
+                x1 = y1;
+                y1 = t;
+                
+                t = x2;
+                x2 = y2;
+                y2 = t;//ä¿è¯å‡æ³•æ˜¯å¤§æ•°å‡å»å°æ•°
             }
         }            
-        String strx = String.valueOf( x );
-        String stry = String.valueOf( y );
-        String ques = " " + strx + strz + stry + "=";
-        if(ques.length()==5)ques = ques + " ";
-        if(ques.length()==4)ques = ques + "  ";
-        if(ques.length()==3)ques = ques + "   ";//±£³Ö¸ñÊ½
+        
+        String strx1 = String.valueOf( x1 );
+        String strx2 = String.valueOf( x2 );
+        String stry1 = String.valueOf( y1 );
+        String stry2 = String.valueOf( y2 );
+
+        String ques = " " + strx1 + "/" + strx2 + strz + stry1 + "/" + stry2 + "=";
+            
         return ques;
-    }//getQuestion
+    }//getPfQuestion
 
 }
